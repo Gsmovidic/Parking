@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Parking.Data;
+using Parking.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddDbContext<DataContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+//Inyecciones
+//builder.Services.AddTransient<SeedDb>();
+builder.Services.AddScoped<ICombosHelper,CombosHelper>();
 
 var app = builder.Build();
 

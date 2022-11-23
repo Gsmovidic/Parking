@@ -29,5 +29,7 @@ namespace Parking.Models
         [DataType(DataType.MultilineText)]
         [Display(Name = "details")]
         public string? Detalles { get; set; }
+
+        public EntradaVM entrada { get; set; }
     }
 }

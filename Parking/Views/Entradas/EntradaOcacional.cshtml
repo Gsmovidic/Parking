@@ -10,6 +10,7 @@
         <form asp-action="EntradaOcacional" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Placa" />
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="ValorHora" class="control-label"></label>
