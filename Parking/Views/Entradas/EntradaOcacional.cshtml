@@ -1,0 +1,56 @@
+﻿@model Parking.Models.EntradaOcacional
+@{
+    ViewData["Title"] = "EntradaOcainal";
+}
+
+<h1>Crear Entrada Ocainal</h1>
+<div class="row">
+
+    <div class="col-md-12">
+        <form asp-action="EntradaOcacional" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ValorHora" class="control-label"></label>
+                    <input asp-for="ValorHora" class="form-control" />
+                    <span asp-validation-for="ValorHora" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hora" class="control-label"></label>
+                    <input asp-for="Hora" class="form-control" />
+                    <span asp-validation-for="Hora" class="text-danger"></span>
+                </div>                
+                 <div class="form-group">
+                    <label asp-for="Detalles" class="control-label"></label>
+                    <input asp-for="Detalles" class="form-control" />
+                    <span asp-validation-for="Detalles" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Guardar" class="btn btn-outline-primary" />
+                <a asp-action="Index" class="btn btn-outline-success">Atras</a>
+            </div>
+        </form>
+    
+    
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

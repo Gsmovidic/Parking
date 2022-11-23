@@ -14,7 +14,7 @@ namespace Parking.Controllers
 
         public EntradasController(DataContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         [HttpGet]
@@ -23,11 +23,11 @@ namespace Parking.Controllers
             return View();
         }
 
-       [HttpPost]
+        [HttpPost]
 
-        public async Task<IActionResult> Entrada(EntradaVM entradaVM) 
+        public async Task<IActionResult> Entrada(EntradaVM entradaVM)
         {
-            VehiculosController vehiculoC= new VehiculosController();
+            VehiculosController vehiculoC = new VehiculosController();
             if (ModelState.IsValid)
             {
                 string pl = entradaVM.Placa;
@@ -37,17 +37,19 @@ namespace Parking.Controllers
                 }
                 else
                 {
-                    if(vehiculoC.ValidarPlaca(pl))
+                    if (vehiculoC.ValidarPlaca(pl))
                     {
                         TipoVehiculo tV = vehiculoC.ValidarTipoVehiculo(pl);
-                        Vehiculo vehi = await _context.Vehiculos.FirstOrDefaultAsync(v=>v.Placa==pl);
-                        if (vehi!=null) 
+                        Vehiculo vehi = await _context.Vehiculos.FirstOrDefaultAsync(v => v.Placa == pl);
+                        if (vehi != null)
                         {
-                            ClientePlan clientePlan = await _context.ClientesPlanes.FirstOrDefaultAsync(cP=>cP.Cliente.Id==vehi.Cliente.Id && cP.Plan.TipoVehiculo==tV && cP.Vigente);
+                            ClientePlan clientePlan = await _context.ClientesPlanes.FirstOrDefaultAsync(cP => cP.Cliente.Id == vehi.Cliente.Id && cP.Plan.TipoVehiculo == tV && cP.Vigente);
                         }
-                        else 
+                        else
                         {
-                           
+                            //EntradaOcional(entradaVM);
+                            
+                            return base.RedirectToAction(nameof(Models.EntradaOcacional));
                         }
                     }
                     else
@@ -63,7 +65,45 @@ namespace Parking.Controllers
             {
                 return NotFound();
             }
-            return NotFound();
+            return View(entradaVM);
+        }
+        [HttpGet]
+        public async Task<IActionResult> EntradaOcacional()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EntradaOcacional(EntradaOcacional entradaOC)
+        {
+            //if (ModelState.IsValid)
+            //{
+                Recibo recibo = new()
+                {
+                    Id = entradaOC.Id,
+                    ValorHora = entradaOC.ValorHora,
+                    Hora = entradaOC.Hora,
+                    fecha = entradaOC.fecha,
+                    Detalles = entradaOC.Detalles
+                };
+                _context.Recibos.Add(recibo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Recibos.Add(recibo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, "Fallo la creacion de recibo (ocacional) Depura");
+                }
+            //}
+                        
+          
+            return View(entradaOC);
         }
     }
 }

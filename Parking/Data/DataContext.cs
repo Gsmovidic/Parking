@@ -8,7 +8,7 @@ namespace Parking.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-
+        //
         public DbSet<Vehiculo> Vehiculos { get; set; }
 
         public DbSet <Cliente> Clientes { get; set; }
@@ -20,6 +20,7 @@ namespace Parking.Data
         public DbSet<Parqueadero> Parqueaderos { get; set; }
 
         public DbSet<RegistroEntrada> RegistroEntradas { get; set; }
+        public DbSet<Recibo> Recibos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,7 @@ namespace Parking.Data
             modelBuilder.Entity<Vehiculo>().HasIndex("Placa","ClienteId" ).IsUnique();
             modelBuilder.Entity<Cliente>().HasIndex(c=>c.Cedula).IsUnique();
             modelBuilder.Entity<Plan>().HasIndex(p=>p.Nombre).IsUnique();
+            modelBuilder.Entity<Recibo>().HasIndex(r => r.Id).IsUnique();
 
 
         }

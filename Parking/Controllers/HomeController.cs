@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Parking.Data;
+using Parking.Data.Entities;
+using Parking.Enums;
 using Parking.Models;
 using System.Diagnostics;
 
@@ -7,10 +11,11 @@ namespace Parking.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly DataContext _context;
+        public HomeController(ILogger<HomeController> logger, DataContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
