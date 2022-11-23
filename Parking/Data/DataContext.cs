@@ -8,7 +8,7 @@ namespace Parking.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-        //
+        //pull
         public DbSet<Vehiculo> Vehiculos { get; set; }
 
         public DbSet <Cliente> Clientes { get; set; }
