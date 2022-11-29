@@ -128,6 +128,7 @@ namespace Parking.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null || _context.Clientes == null)
             {
                 return NotFound();
@@ -139,7 +140,8 @@ namespace Parking.Controllers
                 return NotFound();
             }
 
-            return View(cliente);
+             return View(cliente);
+            //return View();
         }
         /*
             MANEJO DE LOS VEHICULOS
@@ -219,7 +221,7 @@ namespace Parking.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new { Id = model.IdCliente });
+                return RedirectToAction(nameof(Details), new { Id = model.Cliente.Id });
 
             }
             catch (DbUpdateException dbUpdateException)
