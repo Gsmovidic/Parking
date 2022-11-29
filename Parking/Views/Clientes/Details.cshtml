@@ -1,12 +1,18 @@
-﻿@model IEnumerable<Parking.Data.Entities.Cliente>
+﻿@model Parking.Data.Entities.Cliente
 @{
     ViewData["Title"] = "Index";
 }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-
+<h1>Detalles del cliente</h1>
+<div>
+    <partial name="_ClienteDetails" />
+</div>
 <p>
-    <a asp-action="CrearCliente" class="btn btn-outline-primary">Crear Cliente</a>
+    
+    <a asp-action="AgregarVehiculo" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Agregar Vehiculos></i></a>
+    <a asp-action="Detalles" asp-route-id="@Model?.Id" class="btn btn-outline-info">Editar Vehiculos></a>
+    <a asp-action="Index" class="btn btn-success mt">Atras</a>
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -19,45 +25,32 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Cedula)
+                                @Html.DisplayNameFor(model => model.Vehiculos.FirstOrDefault().Placa)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nombre)
+                             <th>
+                                @Html.DisplayNameFor(model => model.Vehiculos.FirstOrDefault().Color)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Correo)
+                             <th>
+                                @Html.DisplayNameFor(model => model.Vehiculos.FirstOrDefault().TipoVehiculo)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NumeroVehiculos)
-                            </th>                            
-                            <th>
-                                @Html.DisplayNameFor(model => model.NumeroPlanes)
-                            </th>  
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Vehiculos)
                         {
                             <tr>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Cedula)
+                                    @Html.DisplayFor(model => model.Vehiculos.FirstOrDefault().Placa)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem=> item.Nombre)
+                                    @Html.DisplayFor(model => model.Vehiculos.FirstOrDefault().Color)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Correo)
-                                </th>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.NumeroVehiculos)
-                                </th>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.NumeroPlanes)
+                                    @Html.DisplayFor(model => model.Vehiculos.FirstOrDefault().TipoVehiculo)
                                 </th>
                                 <td>
-                                    <a asp-action="EditarCliente" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>
+                                    <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>
                                     <a asp-action="Borrar" asp-route-id="@item.Id" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -78,7 +71,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#MyTable').DataTable({
-                
+
                 "aLengthMenu": [
                     [25, 50, 100, 200, -1],
                     [25, 50, 100, 200, "Todos"]
