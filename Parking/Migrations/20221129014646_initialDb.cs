@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -52,6 +53,22 @@ namespace Parking.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Planes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recibos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ValorHora = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Hora = table.Column<float>(type: "real", nullable: false),
+                    fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Detalles = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recibos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,6 +198,12 @@ namespace Parking.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Recibos_Id",
+                table: "Recibos",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RegistroEntradas_ParqueaderoId",
                 table: "RegistroEntradas",
                 column: "ParqueaderoId");
@@ -210,6 +233,9 @@ namespace Parking.Migrations
 
             migrationBuilder.DropTable(
                 name: "ClientesPlanes");
+
+            migrationBuilder.DropTable(
+                name: "Recibos");
 
             migrationBuilder.DropTable(
                 name: "RegistroEntradas");

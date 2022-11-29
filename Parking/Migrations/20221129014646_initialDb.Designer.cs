@@ -12,7 +12,7 @@ using Parking.Data;
 namespace Parking.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221120192911_initialDb")]
+    [Migration("20221129014646_initialDb")]
     partial class initialDb
     {
         /// <inheritdoc />
@@ -154,6 +154,34 @@ namespace Parking.Migrations
                         .IsUnique();
 
                     b.ToTable("Planes");
+                });
+
+            modelBuilder.Entity("Parking.Data.Entities.Recibo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Detalles")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Hora")
+                        .HasColumnType("real");
+
+                    b.Property<decimal>("ValorHora")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("fecha")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Recibos");
                 });
 
             modelBuilder.Entity("Parking.Data.Entities.RegistroEntrada", b =>
