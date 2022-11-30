@@ -214,7 +214,7 @@ namespace Parking.Controllers
             if (ValidarPlaca(model.Placa))
             {
                 _context.Add(vehiculo);
-                await _context.SaveChangesAsync();
+                
             }
             else
             {
@@ -227,7 +227,7 @@ namespace Parking.Controllers
             
             try
             {
-                
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details), new { Id = model.IdCliente });
 
             }
