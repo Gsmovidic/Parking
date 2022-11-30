@@ -200,6 +200,7 @@ namespace Parking.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AgregarVehiculo(AgregarVehiculo model)
         {
             Vehiculo vehiculo = new()
@@ -213,15 +214,21 @@ namespace Parking.Controllers
             if (ValidarPlaca(model.Placa))
             {
                 _context.Add(vehiculo);
+                await _context.SaveChangesAsync();
             }
             else
             {
                 ModelState.AddModelError(string.Empty, "La placa no es valida");
-            }          
+            }
+            if (vehiculo.Cliente==null)
+            {
+                ModelState.AddModelError(string.Empty, "Propietario vacio");
+            }
+            
             try
             {
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details), new { Id = model.Cliente.Id });
+                
+                return RedirectToAction(nameof(Details), new { Id = model.IdCliente });
 
             }
             catch (DbUpdateException dbUpdateException)

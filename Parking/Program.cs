@@ -13,6 +13,7 @@ builder.Services.AddDbContext<DataContext>(o =>
 });
 //Inyecciones
 //builder.Services.AddTransient<SeedDb>();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();//Cambio en caliente
 builder.Services.AddScoped<ICombosHelper,CombosHelper>();
 
 var app = builder.Build();

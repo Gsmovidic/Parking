@@ -25,7 +25,7 @@ namespace Parking.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Vehiculo>().HasIndex("Placa","ClienteId" ).IsUnique();
+            modelBuilder.Entity<Vehiculo>().HasIndex("Placa", "ClienteId").IsUnique();
             modelBuilder.Entity<Cliente>().HasIndex(c=>c.Cedula).IsUnique();
             modelBuilder.Entity<Plan>().HasIndex(p=>p.Nombre).IsUnique();
             modelBuilder.Entity<Recibo>().HasIndex(r => r.Id).IsUnique();
