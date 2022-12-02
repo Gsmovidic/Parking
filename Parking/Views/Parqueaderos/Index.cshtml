@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Parking.Data.Entities.Parqueadero>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+<p>
+    <a asp-action="CrearParqueadero" class="btn btn-outline-primary"><i class="fa-solid fa-square-parking"></i></a>
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Parqueaderos</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ubicacion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NroCeldasCarro)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NroCeldasMoto)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.Ubicacion)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(modelItem=> item.NroCeldasCarro)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.NroCeldasMoto)
+                                </th>
+                                <td>
+                                    <a asp-action="EditarParqueadero" asp-route-id="@item.Id" class="btn btn-outline-warning">Editar parqueadero</a>
+                                    <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-outline-info">Detalles</a>
+                                    <a asp-action="Borrar" asp-route-id="@item.Id" class="btn btn-outline-danger">Borrar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable({
+
+                "aLengthMenu": [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ]
+            });
+        });
+    </script>
+}
