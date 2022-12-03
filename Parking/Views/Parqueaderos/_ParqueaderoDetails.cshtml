@@ -1,0 +1,36 @@
+﻿@model Parking.Data.Entities.Parqueadero
+
+<h4>Vehiculo</h4>
+<hr />
+<dl class="row text-white">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Ubicacion)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Ubicacion)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.NroCeldasCarro)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.NroCeldasCarro)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.NroCeldasMoto)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.NroCeldasMoto)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.RegistrosEntradas)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.RegistrosEntradas)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Celdas.Count)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Celdas.Count)
+    </dd>
+</dl>

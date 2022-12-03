@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Parking.Data;
 using Parking.Data.Entities;
+using Parking.Models;
 
 namespace Parking.Controllers
 {
@@ -53,5 +54,23 @@ namespace Parking.Controllers
             return View(parqueadero);
 
         }
+        public async Task<IActionResult> Detalles(int? id)
+        {
+
+            if (id == null || _context.Parqueaderos == null)
+            {
+                return NotFound();
+            }
+
+            var parqueadero = await _context.Parqueaderos.FirstOrDefaultAsync(m => m.Id == id);
+            if (parqueadero == null)
+            {
+                return NotFound();
+            }
+
+            return View(parqueadero);
+            //return View();
+        }
+        
     }
 }
