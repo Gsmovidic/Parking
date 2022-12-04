@@ -1,0 +1,21 @@
+﻿@model Parking.Data.Entities.Parqueadero
+@{
+    ViewData["Title"] = "Borrar";
+}
+
+<h1>Borrar</h1>
+
+<h3>Seguro de borrar el parqueadero ?</h3>
+<p>Al borrar este parquedero borrara toda informacion como lo es : <br />
+    Las celdas .<br />
+    los clientes y sus vehiculos
+</p>
+<div>
+    <partial name="_ParqueaderoDetails" />
+
+    <form asp-action="Borrar">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-success">Volver a la lista</a>
+    </form>
+</div>

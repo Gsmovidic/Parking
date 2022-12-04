@@ -71,6 +71,44 @@ namespace Parking.Controllers
             return View(parqueadero);
             //return View();
         }
-        
+        [HttpGet]
+        public async Task<IActionResult> Borrar(int? id)
+        {
+            if (id == null || _context.Parqueaderos == null)
+            {
+                return NotFound();
+            }
+
+            var parqueadero = await _context.Parqueaderos
+                //.Include(c => c.Celdas)
+               // .ThenInclude(v => v.Vehiculos)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (parqueadero == null)
+            {
+                return NotFound();
+            }
+
+            return View(parqueadero);
+        }
+
+        [HttpPost, ActionName("Borrar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BorrarConfirmed(int id)
+        {
+            if (_context.Parqueaderos == null)
+            {
+                return Problem("Entity set 'DataContext.Parqueaderos'  is null.");
+            }
+            var parqueadero = await _context.Parqueaderos.FindAsync(id);
+            if (parqueadero != null)
+            {
+                _context.Parqueaderos.Remove(parqueadero);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }
