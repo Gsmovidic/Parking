@@ -1,4 +1,6 @@
 ﻿using Parking.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Parking.Data.Entities
 {
@@ -10,8 +12,11 @@ namespace Parking.Data.Entities
 
         public TipoVehiculo TipoVehiculoCelda { get; set; }
 
-        public bool Disponible { get; set;  }
+        public bool Disponible { get; set; }
 
         public Parqueadero Parqueadero { get; set; }
+
+        [AllowNull]
+        public string? PlacaVehiculo  { get ; set; }
     }
 }

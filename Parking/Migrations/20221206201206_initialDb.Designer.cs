@@ -12,7 +12,7 @@ using Parking.Data;
 namespace Parking.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221120192911_initialDb")]
+    [Migration("20221206201206_initialDb")]
     partial class initialDb
     {
         /// <inheritdoc />
@@ -39,6 +39,9 @@ namespace Parking.Migrations
                     b.Property<int>("ParqueaderoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PlacaVehiculo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TipoVehiculoCelda")
                         .HasColumnType("int");
 
@@ -50,7 +53,7 @@ namespace Parking.Migrations
 
                     b.HasIndex("ParqueaderoId");
 
-                    b.ToTable("Celda");
+                    b.ToTable("Celdas");
                 });
 
             modelBuilder.Entity("Parking.Data.Entities.Cliente", b =>
@@ -95,7 +98,16 @@ namespace Parking.Migrations
                     b.Property<bool>("EnUso")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoVehiculo")
                         .HasColumnType("int");
 
                     b.Property<bool>("Vigente")
@@ -117,6 +129,12 @@ namespace Parking.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("NroCeldasCarro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NroCeldasMoto")
+                        .HasColumnType("int");
 
                     b.Property<string>("Ubicacion")
                         .IsRequired()
@@ -164,6 +182,12 @@ namespace Parking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("FechaHoraEntrada")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ParqueaderoId")
                         .HasColumnType("int");
 
@@ -196,7 +220,7 @@ namespace Parking.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParqueaderoId")
+                    b.Property<int>("ParqueaderoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Placa")
@@ -267,11 +291,15 @@ namespace Parking.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Parking.Data.Entities.Parqueadero", null)
+                    b.HasOne("Parking.Data.Entities.Parqueadero", "Parqueadero")
                         .WithMany("Vehiculos")
-                        .HasForeignKey("ParqueaderoId");
+                        .HasForeignKey("ParqueaderoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
+
+                    b.Navigation("Parqueadero");
                 });
 
             modelBuilder.Entity("Parking.Data.Entities.Cliente", b =>

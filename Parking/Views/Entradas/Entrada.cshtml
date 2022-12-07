@@ -1,0 +1,21 @@
+﻿@model Parking.Models.EntradaVM
+@addTagHelper *, Vereyon.Web.FlashMessage
+
+
+<div class="container smfont">
+    <form asp-action="Entrada" autocomplete="off">
+        <div class="modal-footer">
+            <label asp-for="Placa" class="control-label"></label>
+            <input asp-for="Placa" class="form-control" />
+            <span asp-validation-for="Placa" class="text-danger"></span>
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Guardar</button>
+        </div>
+    </form>
+    <flash dismissable="true" />
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

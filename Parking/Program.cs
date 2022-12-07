@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Parking.Data;
+using Vereyon.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,21 @@ builder.Services.AddDbContext<DataContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddFlashMessage();
+builder.Services.AddTransient<SeedDb>();
 var app = builder.Build();
+SeedData();
+
+void SeedData()
+{
+    IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (IServiceScope? scope = scopedFactory.CreateScope())
+    {
+        SeedDb? service = scope.ServiceProvider.GetService<SeedDb>();
+        service.SeedAsync().Wait();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

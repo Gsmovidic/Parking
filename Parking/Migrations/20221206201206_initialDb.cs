@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -31,7 +32,9 @@ namespace Parking.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ubicacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Ubicacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NroCeldasCarro = table.Column<int>(type: "int", nullable: false),
+                    NroCeldasMoto = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +58,7 @@ namespace Parking.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Celda",
+                name: "Celdas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -63,13 +66,14 @@ namespace Parking.Migrations
                     Ubicación = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoVehiculoCelda = table.Column<int>(type: "int", nullable: false),
                     Disponible = table.Column<bool>(type: "bit", nullable: false),
-                    ParqueaderoId = table.Column<int>(type: "int", nullable: false)
+                    ParqueaderoId = table.Column<int>(type: "int", nullable: false),
+                    PlacaVehiculo = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Celda", x => x.Id);
+                    table.PrimaryKey("PK_Celdas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Celda_Parqueaderos_ParqueaderoId",
+                        name: "FK_Celdas_Parqueaderos_ParqueaderoId",
                         column: x => x.ParqueaderoId,
                         principalTable: "Parqueaderos",
                         principalColumn: "Id",
@@ -83,8 +87,10 @@ namespace Parking.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TipoCliente = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraEntrada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PlacaVehiculo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParqueaderoId = table.Column<int>(type: "int", nullable: false)
+                    ParqueaderoId = table.Column<int>(type: "int", nullable: false),
+                    Pago = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,7 +113,7 @@ namespace Parking.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoVehiculo = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    ParqueaderoId = table.Column<int>(type: "int", nullable: true)
+                    ParqueaderoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,7 +128,8 @@ namespace Parking.Migrations
                         name: "FK_Vehiculos_Parqueaderos_ParqueaderoId",
                         column: x => x.ParqueaderoId,
                         principalTable: "Parqueaderos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,8 +140,11 @@ namespace Parking.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     PlanId = table.Column<int>(type: "int", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Vigente = table.Column<bool>(type: "bit", nullable: false),
-                    EnUso = table.Column<bool>(type: "bit", nullable: false)
+                    EnUso = table.Column<bool>(type: "bit", nullable: false),
+                    TipoVehiculo = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,8 +164,8 @@ namespace Parking.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Celda_ParqueaderoId",
-                table: "Celda",
+                name: "IX_Celdas_ParqueaderoId",
+                table: "Celdas",
                 column: "ParqueaderoId");
 
             migrationBuilder.CreateIndex(
@@ -206,7 +216,7 @@ namespace Parking.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Celda");
+                name: "Celdas");
 
             migrationBuilder.DropTable(
                 name: "ClientesPlanes");

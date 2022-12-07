@@ -8,13 +8,13 @@ namespace Parking.Data.Entities
         public int Id { get; set; }
 
         public TipoCliente TipoCliente { get; set; }
-        [NotMapped]
-        public DateOnly FechaEntrada { get; set; }
-        [NotMapped]
-        public TimeOnly HoraEntrada { get; set; }
+
+        public DateTime FechaHoraEntrada { get; set; }
 
         public string PlacaVehiculo { get; set; }
 
         public Parqueadero Parqueadero {get;set;}
+
+        public bool Pago { get; set; }
     }
 }

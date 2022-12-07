@@ -31,7 +31,7 @@ namespace Parking.Controllers
                 }
                 if (i == 5)
                 {
-                    if (!Char.IsNumber(pl[i]) || !Char.IsLetter(pl[i])) 
+                    if (!Char.IsNumber(pl[i]) && !Char.IsLetter(pl[i])) 
                     {
                         return false;
                     }
@@ -45,7 +45,5 @@ namespace Parking.Controllers
         {
             return Char.IsNumber(pl[pl.Length - 1]) ? TipoVehiculo.Carro : TipoVehiculo.Moto;
         }
-
-
     }
 }

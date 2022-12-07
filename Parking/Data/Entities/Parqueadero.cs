@@ -8,9 +8,9 @@ namespace Parking.Data.Entities
 
         public string Ubicacion { get; set; }
 
-        public int NroCeldasCarro => Celdas == null ? 0 : Celdas.Count(c=>c.TipoVehiculoCelda==TipoVehiculo.Carro);
+        public int NroCeldasCarro { get; set; }
 
-        public int NroCeldasMoto => Celdas == null ? 0 : Celdas.Count(c=>c.TipoVehiculoCelda==TipoVehiculo.Moto);
+        public int NroCeldasMoto { get; set; }
 
         public ICollection<Vehiculo> Vehiculos { get; set;}
 

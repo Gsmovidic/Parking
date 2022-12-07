@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Parking.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Parking.Data.Entities
 {
@@ -9,14 +10,15 @@ namespace Parking.Data.Entities
 
         public Plan Plan { get; set; }
 
-        [NotMapped]
-        public DateOnly FechaInicio { get; set; }
-        [NotMapped]
-        public DateOnly FechaFin { get; set; } 
+        public DateTime FechaInicio { get; set; }
+
+        public DateTime FechaFin { get; set; } 
 
         public bool Vigente { get; set; }
 
         public bool EnUso { get; set; }
+
+        public TipoVehiculo TipoVehiculo { get; set; }
 
     }
 }

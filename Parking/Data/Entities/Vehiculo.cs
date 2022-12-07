@@ -13,6 +13,8 @@ namespace Parking.Data.Entities
 
         public Cliente Cliente { get; set; }
 
+        public Parqueadero Parqueadero { get; set; }
+
 
     }
 }

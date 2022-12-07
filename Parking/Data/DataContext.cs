@@ -21,6 +21,8 @@ namespace Parking.Data
 
         public DbSet<RegistroEntrada> RegistroEntradas { get; set; }
 
+        public DbSet<Celda> Celdas { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
