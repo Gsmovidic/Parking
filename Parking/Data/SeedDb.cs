@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Parking.Controllers;
 using Parking.Data.Entities;
 using Parking.Enums;
 
@@ -113,6 +114,15 @@ namespace Parking.Data
 
                 ClientePlan cP = new ClientePlan { Cliente = c3, Plan = p2, FechaInicio = DateTime.Now, FechaFin = DateTime.Now.AddDays(30), EnUso = false, Vigente = true, TipoVehiculo = TipoVehiculo.Moto };
                 ClientePlan cP2 = new ClientePlan { Cliente = c3, Plan = p1, FechaInicio = DateTime.Now, FechaFin = DateTime.Now.AddDays(30), EnUso = false, Vigente = true, TipoVehiculo = TipoVehiculo.Carro };
+                ParqueaderoController pC = new ParqueaderoController(_context);
+                await pC.ActualizarNumeroCeldas(park ,TipoVehiculo.Carro);
+                await pC.ActualizarNumeroCeldas(park, TipoVehiculo.Moto);
+                Celda cel = await _context.Celdas.FirstOrDefaultAsync(c=>c.TipoVehiculoCelda==TipoVehiculo.Carro);
+                Celda cel2 = await _context.Celdas.FirstOrDefaultAsync(c => c.TipoVehiculoCelda == TipoVehiculo.Moto);
+                cel.Disponible = false;
+                cel2.Disponible = false;
+                _context.Update(cel);
+                _context.Update(cel2);
                 _context.Add(cP);
                 _context.Add(cP2);
                 await _context.SaveChangesAsync();

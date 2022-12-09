@@ -4,11 +4,18 @@
 
 <div class="container smfont">
     <form asp-action="Entrada" autocomplete="off">
-        <div class="modal-footer">
-            <label asp-for="Placa" class="control-label"></label>
-            <input asp-for="Placa" class="form-control" />
-            <span asp-validation-for="Placa" class="text-danger"></span>
-            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Guardar</button>
+        <div class="mx-auto" style="width: 500px;">
+            <div class="card text-center">
+                <div class="card-body">
+                    <br>
+                    <h5 class="card-title">INGRESO DE VEHICULOS</h5>
+                    <br>
+                    <label asp-for="Placa" class="control-label">Ingrese la placa del vehiculo</label>
+                    <input asp-for="Placa" class="form-control"  placeholder="XXX000">
+                    <br>
+                    <button type="button" class="btn btn-secondary">ACEPTAR</button>
+                </div>
+            </div>
         </div>
     </form>
     <flash dismissable="true" />
